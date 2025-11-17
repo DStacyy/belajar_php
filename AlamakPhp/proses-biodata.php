@@ -49,6 +49,11 @@
 <body>
     <div class='container'>
 
+    <?php
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+        
+    ?>
         <div class='success-box'>
             <h2>✅ Biodata Berhasil Diterima!</h2>
             <p>Terima kasih telah mengisi form biodata. Berikut data yang Anda kirim:</p>
@@ -56,13 +61,18 @@
 
         <div class='data-box'>
             <h3>👤 Data Pribadi</h3>
+<?php
+    $nama = htmlspecialchars(trim($_POST['nama']?? ''));
+    $nis = htmlspecialchars(trim($_POST['nis']?? ''));
+    $jenis_kelamin = $_POST ['jenis-kelamin'];
+    $tanggal_lahir = $_POST ['tanggal-lahir'];
+?>
 
 
-
-            <div class='data-item'><span class='data-label'>Nama Lengkap:</span> Dani Mahendra</div>
-            <div class='data-item'><span class='data-label'>NIS:</span> 092837037</div>
-            <div class='data-item'><span class='data-label'>Jenis Kelamin:</span> Laki-laki </div>
-            <div class='data-item'><span class='data-label'>Tanggal Lahir:</span> 12-8-2007</div>
+            <div class='data-item'><span class='data-label'>Nama Lengkap:</span> $nama</div>
+            <div class='data-item'><span class='data-label'>NIS:</span> $nis</div>
+            <div class='data-item'><span class='data-label'>Jenis Kelamin:</span> <?=($jenis_kelamin === 'L' ? 'Laki-laki':'Perempuan') ?> </div>
+            <div class='data-item'><span class='data-label'>Tanggal Lahir:</span> <?+ date('d F Y', strtotime ($tanggal_lahir)) ?> </div>
 
         </div>
 
@@ -102,6 +112,7 @@ border-radius: 5px;
 display: inline-block;
 '>📝 Isi Form Lagi</a>
             </div>
+            <?php } ?>
         </div>
 </body>
 
