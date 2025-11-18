@@ -62,45 +62,90 @@
         <div class='data-box'>
             <h3>👤 Data Pribadi</h3>
 <?php
-    $nama = htmlspecialchars(trim($_POST['nama']?? ''));
-    $nis = htmlspecialchars(trim($_POST['nis']?? ''));
-    $jenis_kelamin = $_POST ['jenis-kelamin'];
-    $tanggal_lahir = $_POST ['tanggal-lahir'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $nama = htmlspecialchars(trim($_POST['nama_lengkap'] ?? ''));
+    $nis = htmlspecialchars(trim($_POST['nis'] ?? ''));
+    $jenis_kelamin = $_POST['jenis_kelamin'] ?? '';
+    $tanggal_lahir = $_POST['tanggal_lahir'] ?? '';
+    $kelas = $_POST['kelas'] ?? '';
+    $alamat = htmlspecialchars($_POST['alamat'] ?? '');
+    $email = htmlspecialchars($_POST['email'] ?? '');
+    $telepon = htmlspecialchars($_POST['telepon'] ?? '');
+    $hobi = $_POST['hobi'] ?? [];   // array checkbox
+}
 ?>
 
 
-            <div class='data-item'><span class='data-label'>Nama Lengkap:</span> $nama</div>
-            <div class='data-item'><span class='data-label'>NIS:</span> $nis</div>
-            <div class='data-item'><span class='data-label'>Jenis Kelamin:</span> <?=($jenis_kelamin === 'L' ? 'Laki-laki':'Perempuan') ?> </div>
-            <div class='data-item'><span class='data-label'>Tanggal Lahir:</span> <?+ date('d F Y', strtotime ($tanggal_lahir)) ?> </div>
+
+            <div class='data-item'><span class='data-label'>Nama Lengkap:</span> <?= $nama ?></div>
+<div class='data-item'><span class='data-label'>NIS:</span> <?= $nis ?></div>
+<div class='data-item'><span class='data-label'>Jenis Kelamin:</span> <?= ($jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan') ?></div>
+<div class='data-item'><span class='data-label'>Tanggal Lahir:</span> <?= date('d F Y', strtotime($tanggal_lahir)) ?></div>
+
+<div class='data-item'><span class='data-label'>Kelas:</span> <?= $kelas ?></div>
+<div class='data-item'><span class='data-label'>Alamat:</span> <?= $alamat ?></div>
+<div class='data-item'><span class='data-label'>Email:</span> <?= $email ?></div>
+<div class='data-item'><span class='data-label'>Telepon:</span> <?= $telepon ?></div>
+
+<div class='data-item'>
+    <span class='data-label'>Hobi:</span><br>
+    <?php foreach ($hobi as $h): ?>
+        - <?= htmlspecialchars($h) ?><br>
+    <?php endforeach; ?>
+</div>
 
         </div>
 
         <div class='data-box'>
             <h3>Data Sekolah</h3>
+<?php
+    $kelas = $_POST['kelas'];
+    $alamat = htmlspecialchars(trim($_POST['alamat']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $telepon = htmlspecialchars(trim($_POST['telepon']));
+?>
 
-
-            <div class='data-item'><span class='data-label'>Kelas:</span> XI RPL</div>
-            <div class='data-item'><span class='data-label'>Alamat:</span> Jombang</div>
-            <div class='data-item'><span class='data-label'>Email:</span> dani123@gmail.com</div>
-            <div class='data-item'><span class='data-label'>Telepon:</span> 08576576572</div>
+            <div class='data-item'><span class='data-label'>Kelas:</span><?=$kelas?> </div>
+            <div class='data-item'><span class='data-label'>Alamat:</span> <?=$alamat?></div>
+            <div class='data-item'><span class='data-label'>Email:</span><?=$email?> </div>
+            <div class='data-item'><span class='data-label'>Telepon:</span> <?=$telepon?></div>
 
         </div>
 
         <div class='data-box'>
             <h3>Minat dan Hobi</h3>
+<?php
+    $hobi = $_POST['hobi'];
 
+    $hbi = ["Coding", "Desain", "Jaringan", "Olahraga"];
+    foreach($hbi as $i){
+        echo $i . "<br";
+    }
+
+    if(!empty($hobi)){
+?>
 
             <!-- Minat dan hobi (bisa multiple) -->
 
             <div class='data-item'>
                 <span class='data-label'>Hobi yang dipilih:</span><br>
+                <?php
+                foreach ($hobi as $h){
+                    $icon = [
+                        'coding'=>'💻',
+                        'desain'=>'🎨',
+                        'jaringan'=>'🔌',
+                        'olahraga'=>'🏃‍♂️'
+                    ];
 
-                - 🎨 Desain <br>
-
+                    echo "- ". ($icon[$h]). " " . ucfirst($h). "<br>";
+                }
+                ?>
+                
 
             </div>
-            
+<?php } ?>
             <!-- Tombol kembali -->
             <div style='text-align: center; margin-top: 30px;'>
                 <a href='form-biodata.html' style='
