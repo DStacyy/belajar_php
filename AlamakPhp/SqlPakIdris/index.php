@@ -34,6 +34,11 @@
                         <td><?=$row ['nama']?></td>
                         <td><?=$row ['kelas']?></td>
                         <td><?=$row ['alamat']?></td>
+                        <td>
+                            <a href="edit.php?id=<?= $row['id'];?>" class="btn btn-warning">Edit</a>
+                            <a href="hapus.php?id=<?= $row['id'];?>" class="btn btn-danger">Delete</a>
+
+                        </td>
                     </tr>
                     <?php } ?>
             </tbody>
