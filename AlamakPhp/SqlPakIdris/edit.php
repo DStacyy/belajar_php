@@ -35,7 +35,7 @@ $row = mysqli_fetch_assoc($data);
                 <label for="alamat" class="form-label">Alamat</label>
                 <textarea name="alamat" id="alamat" class="form-control"><?= $row['alamat']; ?></textarea>
             </div>
-            <button class="btn btn-primary" type="submit" name="udate">Update</button>      
+            <button class="btn btn-primary" type="submit" name="update">Update</button>      
         </form>
     </div>
 <?php
@@ -44,7 +44,7 @@ $row = mysqli_fetch_assoc($data);
         $kelas = $_POST['kelas'];
         $alamat = $_POST['alamat'];
 
-        mysqli_query($koneksi, "UPDATE siswa SET nama='$nama', kelas='$kelas', alamat='$alamat' WHERE id=$id");
+        mysqli_query($konek, "UPDATE siswa SET nama='$nama', kelas='$kelas', alamat='$alamat' WHERE id=$id");
         header('Location: index.php');
     }
     ?>
