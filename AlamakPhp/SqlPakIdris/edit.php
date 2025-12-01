@@ -3,6 +3,9 @@ include "koneksi.php";
 $id = $_GET['id'];
 
 $data = mysqli_query($konek, "SELECT *FROM siswa WHERE id=$id");
+
+$row = mysqli_fetch_assoc($data);
+
 ?>
 
 
@@ -22,18 +25,29 @@ $data = mysqli_query($konek, "SELECT *FROM siswa WHERE id=$id");
         <form action="" method="post">
             <div>
                 <label for="nama" class="form-label">Nama</label>
-                <input type="text" name="nama"id="nama" class="form-control"> 
+                <input type="text" name="nama"id="nama" class="form-control" value="<?= $row['nama']; ?>"> 
             </div>
             <div>
                 <label for="kelas" class="form-label">Kelas</label>
-                <input type="text" name="kelas"id="kelas" class="form-control"> 
+                <input type="text" name="kelas"id="kelas" class="form-control" value="<?= $row['kelas']; ?>"> 
             </div>
             <div>
                 <label for="alamat" class="form-label">Alamat</label>
-                <textarea name="alamat" id="alamat" class="form-control"></textarea>
+                <textarea name="alamat" id="alamat" class="form-control"><?= $row['alamat']; ?></textarea>
             </div>
-            <input type="submit" value="submit" class="btn btn-primary">       
+            <button class="btn btn-primary" type="submit" name="udate">Update</button>      
         </form>
     </div>
+<?php
+    if (isset($_POST['update'])) {
+        $nama = $_POST['nama'];
+        $kelas = $_POST['kelas'];
+        $alamat = $_POST['alamat'];
+
+        mysqli_query($koneksi, "UPDATE siswa SET nama='$nama', kelas='$kelas', alamat='$alamat' WHERE id=$id");
+        header('Location: index.php');
+    }
+    ?>
+
 </body>
 </html>
